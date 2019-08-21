@@ -1,0 +1,5 @@
+<dataset>
+    <Transaction id="1b020699-8739-44fe-c523-fe777c4a54ea" profile_id="profileId1" currency="USD" exchange_rate="1.32" amount="23" transaction_status="PENDING" local_date_time="2018-02-23 16:31:24"/>
+    <Transaction id="2b020699-8739-44fe-c523-fe777c4a54ea" profile_id="profileId2" currency="EUR" exchange_rate="2.11" amount="10" transaction_status="COMPLETED" local_date_time="2019-01-08 09:11:37"/>
+    <Transaction id="3b020699-8739-44fe-4178-fe555c4a32ea" profile_id="profileId3" currency="EUR" exchange_rate="7.55" amount="55" transaction_status="COMPLETED" local_date_time="2021-01-08 09:02:37"/>
+</dataset>
