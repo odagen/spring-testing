@@ -1,6 +1,6 @@
 package com.epam.rd.testing.repository;
 
-import com.epam.rd.testing.SpringTests;
+import com.epam.rd.testing.BaseTest;
 import com.epam.rd.testing.repository.entity.Transaction;
 import com.epam.rd.testing.repository.enums.Currency;
 import com.epam.rd.testing.repository.enums.TransactionStatus;
@@ -26,7 +26,7 @@ import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
         DbUnitTestExecutionListener.class
 })
 @DatabaseSetup(value = "/data.xml", type = DatabaseOperation.INSERT)
-public class TransactionRepositoryTest extends SpringTests {
+public class TransactionRepositoryTest extends BaseTest {
 
     @Autowired
     private TransactionRepository transactionRepository;

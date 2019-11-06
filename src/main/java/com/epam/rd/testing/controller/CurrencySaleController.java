@@ -17,8 +17,12 @@ import java.util.Collection;
 @RequestMapping(path = "/transactions")
 public class CurrencySaleController {
 
+    private final TransactionService transactionService;
+
     @Autowired
-    private TransactionService transactionService;
+    public CurrencySaleController(TransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
 
     @GetMapping
     public Collection<TransactionDTO> getAllTransactions() {
