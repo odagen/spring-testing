@@ -23,7 +23,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class TransactionServiceImplTest {
-    private final Random random = new Random();
     private final TransactionRepository transactionRepository = mock(TransactionRepository.class);
     private final TransactionMapper transactionMapper = new TransactionMapperImpl();
     private final TransactionService sut = new TransactionServiceImpl(transactionRepository, transactionMapper);

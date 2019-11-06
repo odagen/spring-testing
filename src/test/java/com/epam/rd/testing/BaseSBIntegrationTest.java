@@ -8,7 +8,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public abstract class BaseIntegrationTest extends BaseTest {
+public abstract class BaseSBIntegrationTest extends BaseTest {
 
     @Autowired
     protected MockMvc mockMvc;
