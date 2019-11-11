@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TransactionDTO {
+public class TransactionRequestDto {
 
     @JsonProperty
     private String id;
@@ -25,9 +25,6 @@ public class TransactionDTO {
 
     @JsonProperty
     private String currency;
-
-    @JsonProperty
-    private Double rate;
 
     @JsonProperty
     private BigDecimal amount;

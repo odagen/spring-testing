@@ -1,7 +1,8 @@
 package com.epam.rd.testing.controller;
 
 import com.epam.rd.testing.service.TransactionService;
-import com.epam.rd.testing.service.dto.TransactionDTO;
+import com.epam.rd.testing.service.dto.TransactionRequestDto;
+import com.epam.rd.testing.service.dto.TransactionResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,18 +26,18 @@ public class CurrencySaleController {
     }
 
     @GetMapping
-    public Collection<TransactionDTO> getAllTransactions() {
+    public Collection<TransactionResponseDto> getAllTransactions() {
         return transactionService.findAllTransactions();
     }
 
     @PostMapping(path = "/transaction")
-    public void createTransaction(@RequestBody TransactionDTO transactionDTO) {
-        transactionService.createTransaction(transactionDTO);
+    public void createTransaction(@RequestBody TransactionRequestDto transactionRequestDto) {
+        transactionService.createTransaction(transactionRequestDto);
     }
 
     @PutMapping(path = "/transaction")
-    public void updateTransaction(@RequestBody TransactionDTO transactionDTO) {
-        transactionService.updateTransaction(transactionDTO);
+    public void updateTransaction(@RequestBody TransactionRequestDto transactionRequestDto) {
+        transactionService.updateTransaction(transactionRequestDto);
     }
 
     @DeleteMapping(path = "/transaction/{transactionId}")

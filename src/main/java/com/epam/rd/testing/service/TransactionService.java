@@ -1,16 +1,17 @@
 package com.epam.rd.testing.service;
 
-import com.epam.rd.testing.service.dto.TransactionDTO;
+import com.epam.rd.testing.service.dto.TransactionRequestDto;
+import com.epam.rd.testing.service.dto.TransactionResponseDto;
 
 import java.util.Collection;
 
 public interface TransactionService {
 
-    Collection<TransactionDTO> findAllTransactions();
+    Collection<TransactionResponseDto> findAllTransactions();
 
-    void createTransaction(TransactionDTO transactionDTO);
+    void createTransaction(TransactionRequestDto transactionRequestDto);
 
     void removeTransaction(String transactionId);
 
-    void updateTransaction(TransactionDTO transactionDTO);
+    void updateTransaction(TransactionRequestDto transactionDto);
 }

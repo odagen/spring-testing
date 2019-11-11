@@ -1,7 +1,7 @@
 package com.epam.rd.testing.controller;
 
 import com.epam.rd.testing.service.TransactionService;
-import com.epam.rd.testing.service.dto.TransactionDTO;
+import com.epam.rd.testing.service.dto.TransactionResponseDto;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
@@ -10,7 +10,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.List;
 
-import static com.epam.rd.testing.utils.TestDataGenerator.generateTransactionDtos;
+import static com.epam.rd.testing.utils.TestDataGenerator.generateResponseTransactionDtos;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
@@ -28,7 +28,7 @@ public class CurrencySaleControllerTest {
 
     @Test
     public void getAllTransactionsShouldReturnTransactionsDetails() throws Exception {
-        List<TransactionDTO> inputTransactionDtos = generateTransactionDtos(2);
+        List<TransactionResponseDto> inputTransactionDtos = generateResponseTransactionDtos(2);
         given(this.transactionService.findAllTransactions()).willReturn(inputTransactionDtos);
 
         mockMvc.perform(get("/transactions")

@@ -7,3 +7,7 @@ spring:
     jpa:
       hibernate:
         ddl-auto: update
+
+service:
+  currency:
+    baseUrl: https://mocked.url/

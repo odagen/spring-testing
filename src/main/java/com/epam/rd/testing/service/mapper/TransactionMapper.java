@@ -1,7 +1,8 @@
 package com.epam.rd.testing.service.mapper;
 
 import com.epam.rd.testing.repository.entity.Transaction;
-import com.epam.rd.testing.service.dto.TransactionDTO;
+import com.epam.rd.testing.service.dto.TransactionRequestDto;
+import com.epam.rd.testing.service.dto.TransactionResponseDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -13,10 +14,15 @@ public interface TransactionMapper {
     @Mappings({
             @Mapping(target = "id", expression = "java( transaction.getId().toString() )")
     })
-    TransactionDTO toDTO(Transaction transaction);
+    TransactionResponseDto toResponse(Transaction transaction);
+
+    @Mappings({
+            @Mapping(target = "id", expression = "java( transaction.getId().toString() )")
+    })
+    TransactionRequestDto toRequest(Transaction transaction);
 
     @Mappings({
             @Mapping(target = "id", expression = "java( UUID.randomUUID() )")
     })
-    Transaction toDomain(TransactionDTO transaction);
+    Transaction toDomain(TransactionRequestDto transactionDto);
 }

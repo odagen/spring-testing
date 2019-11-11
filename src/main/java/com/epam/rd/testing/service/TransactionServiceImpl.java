@@ -2,11 +2,14 @@ package com.epam.rd.testing.service;
 
 import com.epam.rd.testing.repository.TransactionRepository;
 import com.epam.rd.testing.repository.entity.Transaction;
-import com.epam.rd.testing.service.dto.TransactionDTO;
+import com.epam.rd.testing.service.dto.ExchangeRate;
+import com.epam.rd.testing.service.dto.TransactionRequestDto;
+import com.epam.rd.testing.service.dto.TransactionResponseDto;
 import com.epam.rd.testing.service.mapper.TransactionMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -16,21 +19,26 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
 
+    private final CurrencyExchangeRateService currencyRateService;
     private final TransactionRepository transactionRepository;
     private final TransactionMapper transactionMapper;
 
     @Override
-    public Collection<TransactionDTO> findAllTransactions() {
+    public Collection<TransactionResponseDto> findAllTransactions() {
         List<Transaction> transactions = transactionRepository.findAll();
 
         return transactions.stream()
-                .map(transactionMapper::toDTO)
+                .map(transactionMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public void createTransaction(TransactionDTO transactionDTO) {
-        Transaction transaction = transactionMapper.toDomain(transactionDTO);
+    public void createTransaction(TransactionRequestDto transactionRequest) {
+        Transaction transaction = transactionMapper.toDomain(transactionRequest);
+        ExchangeRate exchangeRate = currencyRateService.tryGetCurrencyExchangeRate(transaction.getCurrency(), LocalDate.now())
+                .orElseGet(() -> currencyRateService.getCurrencyExchangeRateFallBack(transaction.getCurrency()));
+        transaction.setRate(exchangeRate.getSaleRate());
+
         transactionRepository.save(transaction);
     }
 
@@ -40,8 +48,8 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public void updateTransaction(TransactionDTO transactionDTO) {
-        Transaction transaction = transactionMapper.toDomain(transactionDTO);
+    public void updateTransaction(TransactionRequestDto transactionDto) {
+        Transaction transaction = transactionMapper.toDomain(transactionDto);
         transactionRepository.save(transaction);
     }
 }

@@ -2,14 +2,13 @@ package com.epam.rd.testing.service;
 
 import com.epam.rd.testing.repository.TransactionRepository;
 import com.epam.rd.testing.repository.entity.Transaction;
-import com.epam.rd.testing.service.dto.TransactionDTO;
+import com.epam.rd.testing.service.dto.TransactionResponseDto;
 import com.epam.rd.testing.service.mapper.TransactionMapper;
 import com.epam.rd.testing.service.mapper.TransactionMapperImpl;
 import org.junit.Test;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Random;
 
 import static com.epam.rd.testing.utils.TestDataGenerator.generateTransactions;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -23,9 +22,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class TransactionServiceImplTest {
+    private final CurrencyExchangeRateService currencyExchangeRateService = mock(CurrencyExchangeRateService.class);
     private final TransactionRepository transactionRepository = mock(TransactionRepository.class);
     private final TransactionMapper transactionMapper = new TransactionMapperImpl();
-    private final TransactionService sut = new TransactionServiceImpl(transactionRepository, transactionMapper);
+    private final TransactionService sut = new TransactionServiceImpl(currencyExchangeRateService, transactionRepository, transactionMapper);
 
     @Test
     public void shouldFindAllPersistenceEntity() {
@@ -34,7 +34,7 @@ public class TransactionServiceImplTest {
         doReturn(transactions).when(transactionRepository).findAll();
 
         //When
-        Collection<TransactionDTO> foundTransactions = sut.findAllTransactions();
+        Collection<TransactionResponseDto> foundTransactions = sut.findAllTransactions();
 
         //Then
         verify(transactionRepository).findAll();
@@ -51,6 +51,5 @@ public class TransactionServiceImplTest {
                         hasProperty("rate", is(transaction.getRate()))))
                 )
         );
-
     }
 }

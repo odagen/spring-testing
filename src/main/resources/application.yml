@@ -3,7 +3,14 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost/test
-    username: dbuser
-    password: dbpass
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+    jpa:
+      hibernate:
+        ddl-auto: update
+
+service:
+  currency:
+    baseUrl: https://api.privatbank.ua/

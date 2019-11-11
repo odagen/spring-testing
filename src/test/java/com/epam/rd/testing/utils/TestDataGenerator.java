@@ -3,7 +3,8 @@ package com.epam.rd.testing.utils;
 import com.epam.rd.testing.repository.entity.Transaction;
 import com.epam.rd.testing.repository.enums.Currency;
 import com.epam.rd.testing.repository.enums.TransactionStatus;
-import com.epam.rd.testing.service.dto.TransactionDTO;
+import com.epam.rd.testing.service.dto.TransactionRequestDto;
+import com.epam.rd.testing.service.dto.TransactionResponseDto;
 import com.epam.rd.testing.service.mapper.TransactionMapperImpl;
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -21,9 +22,15 @@ public class TestDataGenerator {
     private final Random random = new Random();
     private final TransactionMapperImpl transactionMapper = new TransactionMapperImpl();
 
-    public static List<TransactionDTO> generateTransactionDtos(int count) {
+    public static List<TransactionRequestDto> generateRequestTransactionDtos(int count) {
         return generateTransactions(count).stream()
-                .map(transactionMapper::toDTO)
+                .map(transactionMapper::toRequest)
+                .collect(Collectors.toList());
+    }
+
+    public static List<TransactionResponseDto> generateResponseTransactionDtos(int count) {
+        return generateTransactions(count).stream()
+                .map(transactionMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
@@ -37,6 +44,7 @@ public class TestDataGenerator {
         return Transaction.builder().currency(random.nextBoolean() ? Currency.USD : Currency.EUR)
                 .id(UUID.randomUUID())
                 .amount(BigDecimal.valueOf(counter))
+                .rate(random.nextDouble())
                 .profileId(RandomStringUtils.randomAlphabetic(10))
                 .transactionStatus(random.nextBoolean() ? TransactionStatus.COMPLETED : TransactionStatus.PENDING)
                 .localDateTime(LocalDateTime.now())
